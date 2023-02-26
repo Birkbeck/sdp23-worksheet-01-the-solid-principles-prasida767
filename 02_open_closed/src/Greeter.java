@@ -1,19 +1,17 @@
-public class Greeter {
-    String formality;
+import java.util.Objects;
 
-    public String greet() {
-        if (this.formality == "formal") {
-            return "Good evening";
-        } else if (this.formality == "casual") {
-            return "Goodday?";
-        } else if (this.formality == "intimate") {
-            return "Hello darling!";
-        } else {
-            return "Hello.";
-        }
-    }
+public class Greeter {
+    private Personality personality;
 
     public void setFormality(String formality) {
-        this.formality = formality;
+        FormalityMap formalityMap = new FormalityMap();
+        this.personality = formalityMap.getInstance(formality);
     }
+
+    public String greet() {
+        if(this.personality == null)
+            return new Default().greet();
+        return this.personality.greet();
+    }
+
 }
